@@ -1,0 +1,71 @@
+<script>
+  google.script.run.withSuccessHandler(function(result){
+    document.getElementById("title1").textContent = result;
+  }).displayTitle();
+  
+  // The condition is open the form.
+  google.script.run.withSuccessHandler(function(result){
+    if(result == "Open"){
+      document.getElementById("mainform").style.display = "block";  //able
+      document.getElementById("headlbl").style.display = "none"; //disable
+    }else{
+      document.getElementById("mainform").style.display = "none";  //disable
+      document.getElementById("headlbl").style.display = "block";  //able
+    }
+  }).statusForm();
+
+  function loginUser(){
+    document.getElementById("showMessage").innerHTML = "ระบบกำลังบันทึกข้อมูล กรุณารอสักครู่...";
+    document.getElementById("submitbtn").disabled = true;
+
+    let data = {
+    employeeid: document.getElementById("employeeid").value,
+    username: document.getElementById("username").value,
+    department: document.getElementById("department").value
+    };
+    //console.log(data.employeeid);
+    google.script.run.withSuccessHandler(saveSuccess).addData(data)
+    //document.getElementById("errorMessage").textContent = "Test :"+ data.username;
+  }
+
+  function saveSuccess(result) {
+    if (result === true) {
+      document.getElementById("showMessage").innerHTML = "";
+      document.getElementById("showMessage2").textContent = document.getElementById("username").value+" ได้ลงทะเบียนเรียบร้อยแล้ว";
+      document.getElementById("employeeid").disabled = true;
+      document.getElementById("submitbtn").disabled = true;
+      document.getElementById("searchbtn").disabled = true;
+    } else {
+      document.getElementById("errorMessage").textContent = "ลงทะเบียนไม่สำเร็จ กรุณาติดต่อผู้ดูแลระบบ";
+      document.getElementById("showMessage").innerHTML = "";
+      document.getElementById("employeeid").disabled = true;
+      document.getElementById("submitbtn").disabled = true;
+      document.getElementById("searchbtn").disabled = true;
+      //document.getElementById("errorMessage").textContent = "Test: "+result;
+    }
+  }
+      
+  function searchUser(){
+    document.getElementById("errorMessage").innerHTML = "";
+    document.getElementById("showMessage").innerHTML = "ระบบกำลังค้นหา กรุณารอสักครู่ ...";
+    document.getElementById("searchbtn").disabled = true;
+    var employeeid = document.getElementById("employeeid").value 
+    google.script.run.withSuccessHandler(function(output) {
+      if(output.username != 'FALSE'){ 
+        document.getElementById("username").value = output.username; 
+        document.getElementById("department").value = output.department; 
+        document.getElementById("submitbtn").disabled = false;
+        document.getElementById("errorMessage").innerHTML = ""; 
+        document.getElementById("showMessage").innerHTML = "";
+      }
+      else if(output.username == 'FALSE'){
+        document.getElementById("errorMessage").innerHTML = "คุณกรอกรหัสพนักงานไม่ถูกต้อง!";
+        document.getElementById("showMessage").innerHTML = "";   
+        document.getElementById("username").value = "";
+        document.getElementById("department").value = "";
+        document.getElementById("submitbtn").disabled = true;  
+        document.getElementById("searchbtn").disabled = false; 
+      }    
+    }).checkLogin(employeeid);
+  }
+</script>
