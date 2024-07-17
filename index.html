@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+  <head>
+    <title>ระบบลงทะเบียน</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
+    <style>
+      body {font-family: 'Kanit', sans-serif;}
+    </style>
+  </head>
+  <body>
+    <div class="p-5 bg-warning text-white text-center">
+      <h1>ระบบลงทะเบียน</h1>
+      <h3 id="title1"></h3>
+      <h3 id="title2"></h3> 
+    </div>
+    <div class="container mt-3">
+      <h5 id="headlbl" style="display: none;">-- ขณะนี้แบบฟอร์มปิดการกรอกข้อมูลแล้ว --</h5>  
+
+      <form action="javascript:void(0);" class="was-validated" id="mainform">
+
+        <div class="mb-3 mt-3" id="searchform">
+          <label for="employeeid" class="form-label">รหัสพนักงาน:</label>
+          <input type="text" class="form-control" id="employeeid" placeholder="กรุณากรอกรหัสพนักงาน" name="employeeid" required>
+          <div class="invalid-feedback">กรุณากรอกข้อมูล</div>
+        </div>
+
+        <div class="mb-3" id="regisform">
+          <label for="username" class="form-label">ชื่อ-นามสกุล:</label>
+          <input type="text" class="form-control" id="username" placeholder="ชื่อ-นามสกุลพนักงาน" name="username" disabled="true">
+        </div>
+
+        <div class="mb-3" id="regisform">
+          <label for="username" class="form-label">หน่วยงาน:</label>
+          <input type="text" class="form-control" id="department" placeholder="หน่วยงาน" name="department" disabled="true">
+        </div>
+
+        <div class="row">
+          <div class="col"><button type="search" class="btn btn-primary" id="searchbtn" value="search" onclick="searchUser()">ค้นหาข้อมูล</button></div>
+          <div class="col"><button type="submit" class="btn btn-success" id="submitbtn" value="Login" onclick="loginUser()" disabled="true">ลงทะเบียน</button></br></br></div>
+        </div>
+
+        <span id="errorMessage" style="color: red" ></span>
+        <span id="showMessage" style="color: blue" ></span>
+        <span id="showMessage2" style="color: green" ></span></br></br>
+       
+      </form>
+    </div>
+
+    <?!= include('JavaScript'); ?>
+
+    <div class="mt-5 p-4 bg-dark text-white text-center">
+      <p>ส่วนบริหารการเปลี่ยนแปลง (บบย.)</p>
+      <p class="text-muted" style="text-align:right">Registration form 01</p>
+    </div>
+  </body>
+</html>
